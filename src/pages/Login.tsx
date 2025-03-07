@@ -18,13 +18,18 @@ const fadeIn = keyframes`
   }
 `;
 
+// Styled components for layout
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f9f9f9;
-  min-height: 100vh;
+  margin: 40px 0;
   padding: 40px 20px;
+
+  @media (max-width: 480px) {
+    padding: 20px;
+  }
 `;
 
 const FormContainer = styled.div`
@@ -33,16 +38,17 @@ const FormContainer = styled.div`
   align-items: center;
   width: 100%;
   max-width: 400px;
-  margin: 100px auto;
+  margin: 80px auto;
   padding: 30px;
   background: white;
   border-radius: 12px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
   animation: ${fadeIn} 0.5s ease-in-out;
 
-  @media (max-width: 768px) {
-    margin-top: 80px;
-    padding: 25px;
+  @media (max-width: 480px) {
+    padding: 20px;
+    margin: 60px auto;
+    width: 90%;
   }
 `;
 
@@ -55,6 +61,12 @@ const StyledForm = styled.form`
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
+  }
+
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 22px;
+    }
   }
 `;
 
@@ -78,12 +90,18 @@ const InputGroup = styled.div`
     border-radius: 6px;
     font-size: 16px;
     transition: all 0.3s ease;
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    box-sizing: border-box;
 
     &:focus {
       border-color: #4caf50;
       box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
       outline: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    input {
+      padding: 10px;
     }
   }
 `;
@@ -134,6 +152,10 @@ const Button = styled.button`
     background-color: #cccccc;
     cursor: not-allowed;
   }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 `;
 
 const ErrorMessage = styled.p`
@@ -146,6 +168,7 @@ const ErrorMessage = styled.p`
   text-align: center;
 `;
 
+// Login Component
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
