@@ -217,7 +217,6 @@ const AdminChatBot: React.FC<{
       .get(`https://standard-server.onrender.com/api/chat/history/${sessionId}`)
       .then((response) => {
         setMessages(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           response.data.messages.map((msg: any) => ({
             text: msg.message,
             isUser: msg.isUser,

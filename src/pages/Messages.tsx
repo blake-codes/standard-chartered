@@ -87,7 +87,6 @@ const Messages = () => {
     if (!isAuthenticated) {
       navigate("/login"); // Redirect to login page if not authenticated
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
