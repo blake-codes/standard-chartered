@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/NavBar";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import ChatBot from "../components/ChatBot";
-
-// ---------------- Styled Components ----------------
 
 const LoanContainer = styled.div`
   padding: 2rem;
