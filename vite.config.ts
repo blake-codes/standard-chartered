@@ -1,8 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/",
+  base: "/", // Ensure this is set correctly
+  server: {
+    host: true, // Allow external access (optional)
+  },
+  build: {
+    outDir: "dist",
+  },
 });
