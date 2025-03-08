@@ -100,7 +100,14 @@ const BackArrow = styled.button`
 const ButtonContainer = styled.div`
   margin-top: 2rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const AdminButton = styled.button`
@@ -111,9 +118,16 @@ const AdminButton = styled.button`
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+  max-width: 200px;
 
   &:hover {
     background: #0056b3;
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
   }
 `;
 
