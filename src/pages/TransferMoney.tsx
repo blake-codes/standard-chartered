@@ -412,6 +412,7 @@ const TransferMoney = () => {
           "https://standard-server.onrender.com/api/transactions/transfer-money",
           payload
         );
+        console.log(response, "RES____");
         if (response.data.status) {
           toast.success("Transfer successful!", {
             position: "top-right",
@@ -428,6 +429,10 @@ const TransferMoney = () => {
         }
       } catch (err: any) {
         console.log("Error processing transfer. Try again:", err);
+        toast.error("Error processing transfer. Try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
         setError("Error processing transfer. Try again.");
       } finally {
         setIsTransferring(false);
