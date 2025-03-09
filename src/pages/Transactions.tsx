@@ -12,8 +12,7 @@ interface Transaction {
   category: "debit" | "credit";
   amount: number;
   status: "completed" | "pending" | "failed";
-  createdAt: string; // Keep for reference
-  transactionDate?: string; // Allow users to specify a date
+  transactionDate: string;
   details: {
     fullName?: string;
     sender?: string;
@@ -90,6 +89,13 @@ const Transactions: React.FC = () => {
     setTransactionToEdit(transaction);
     setShowEditModal(true);
   };
+  const formatKey = (key: string) => {
+    return key
+      .replace(/([A-Z])/g, " $1") // Add space before uppercase letters
+      .replace(/_/g, " ") // Replace underscores with spaces
+      .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize first letter of each word
+  };
+
   return (
     <>
       <Navbar />
@@ -109,8 +115,8 @@ const Transactions: React.FC = () => {
             {transactions
               .sort(
                 (a, b) =>
-                  new Date(b.createdAt).getTime() -
-                  new Date(a.createdAt).getTime()
+                  new Date(b.transactionDate).getTime() -
+                  new Date(a.transactionDate).getTime()
               )
               .map((transaction) => (
                 <TransactionItem
@@ -137,7 +143,9 @@ const Transactions: React.FC = () => {
                     </TransactionDetail>
 
                     <TransactionDate>
-                      {new Date(transaction.createdAt).toLocaleDateString()}
+                      {new Date(
+                        transaction.transactionDate
+                      ).toLocaleDateString()}
                     </TransactionDate>
                     <TransactionStatus status={transaction.status}>
                       {transaction.status}
@@ -190,7 +198,7 @@ const Transactions: React.FC = () => {
             </p>
             <p>
               <strong>Date:</strong>{" "}
-              {new Date(selectedTransaction.createdAt).toLocaleString()}
+              {new Date(selectedTransaction.transactionDate).toLocaleString()}
             </p>
             <p>
               <strong>Details:</strong>
@@ -199,7 +207,7 @@ const Transactions: React.FC = () => {
               {Object.entries(selectedTransaction.details).map(
                 ([key, value]) => (
                   <li key={key}>
-                    <strong>{key}:</strong> {value}
+                    <strong>{formatKey(key)}:</strong> {value}
                   </li>
                 )
               )}

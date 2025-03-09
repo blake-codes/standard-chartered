@@ -11,6 +11,7 @@ const ChatWindow = styled.div<{ isOpen: boolean }>`
   right: 20px;
   width: 350px;
   max-width: 90%;
+  max-height: 500px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.2);
@@ -46,22 +47,27 @@ const ChatWindow = styled.div<{ isOpen: boolean }>`
   @media (max-width: 600px) {
     bottom: 10px;
     right: 10px;
-    width: 90%;
-    height: 70%;
-    padding: 5px;
+    width: 95%;
+    height: 80vh;
+    max-height: 80vh;
+    padding: 8px;
   }
 `;
-
 const Header = styled.div`
   background-color: #4caf50;
   color: white;
-  padding: 15px;
+  padding: 12px;
   text-align: center;
   border-radius: 10px 10px 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
+
+  @media (max-width: 600px) {
+    padding: 10px;
+    font-size: 14px;
+  }
 `;
 
 const Loader = styled.div`
@@ -98,23 +104,30 @@ const MessageContainer = styled.div`
   flex-grow: 1;
   overflow-y: auto;
   margin: 10px 0;
-  padding: 5px;
+  padding: 8px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 600px) {
+    padding: 6px;
+  }
 `;
 
 const MessageBubble = styled.div<{ isUser: boolean }>`
   background-color: ${({ isUser }) => (isUser ? "#a9caec" : "#f1f1f1")};
-  color: ${({ isUser }) => (isUser ? "black" : "black")};
+  color: black;
   border-radius: 20px;
   padding: 10px;
-  max-width: 80%;
+  max-width: 75%;
   margin: 5px 0;
   align-self: ${({ isUser }) => (isUser ? "flex-end" : "flex-start")};
   word-wrap: break-word;
+
   @media (max-width: 600px) {
     padding: 8px;
-    max-width: 90%;
-    font-size: 12px;
+    max-width: 85%;
+    font-size: 16px;
   }
 `;
 
@@ -123,6 +136,10 @@ const InputArea = styled.div`
   align-items: center;
   padding: 10px;
   border-top: 1px solid #ccc;
+
+  @media (max-width: 600px) {
+    padding: 8px;
+  }
 `;
 
 const InputField = styled.input`
@@ -130,9 +147,10 @@ const InputField = styled.input`
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  margin-right: 10px;
+  margin-right: 8px;
   font-size: 14px;
   transition: border-color 0.3s;
+
   @media (max-width: 600px) {
     font-size: 12px;
     padding: 8px;
@@ -140,30 +158,34 @@ const InputField = styled.input`
 `;
 
 const SendButton = styled.button`
-  padding: 12px 15px;
+  padding: 10px 12px;
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   transition: background-color 0.3s;
 
   &:hover {
     background-color: #539c55;
   }
+
   @media (max-width: 600px) {
-    padding: 10px 12px;
-    font-size: 16px;
+    padding: 8px 10px;
+    font-size: 14px;
   }
 `;
-
 const CloseButton = styled.button`
   background: none;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+  }
 `;
 
 // ChatBot Component

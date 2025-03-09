@@ -580,7 +580,9 @@ const Dashboard = () => {
                         "N/A"}
                     </TransactionDetail>
                     <TransactionDateText>
-                      {new Date(transaction.createdAt).toLocaleDateString()}
+                      {new Date(
+                        transaction.transactionDate
+                      ).toLocaleDateString()}
                     </TransactionDateText>
                   </TransactionText>
                 </TransactionInfo>

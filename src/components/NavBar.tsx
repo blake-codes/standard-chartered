@@ -237,14 +237,20 @@ const Navbar = () => {
         </Logo>
 
         <ul>
-          {isOpen && isAuthenticated && (
+          {isOpen && isAuthenticated && username !== "admin" && (
             <li>
               <Link to="/dashboard" onClick={() => setIsOpen(false)}>
                 Dashboard
               </Link>
             </li>
           )}
-
+          {isOpen && isAuthenticated && username === "admin" && (
+            <li>
+              <Link to="/accounts" onClick={() => setIsOpen(false)}>
+                Accounts
+              </Link>
+            </li>
+          )}
           {isOpen && isAuthenticated && username === "admin" && (
             <li>
               <Link to="/messages" onClick={() => setIsOpen(false)}>
@@ -252,6 +258,7 @@ const Navbar = () => {
               </Link>
             </li>
           )}
+
           {isOpen && (
             <li>
               <Link to="/business" onClick={() => setIsOpen(false)}>
