@@ -8,6 +8,7 @@ import {
   FaChevronDown,
   FaSignOutAlt,
   FaLock,
+  FaUserCog,
 } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 
@@ -346,6 +347,14 @@ const Navbar = () => {
           )}
 
           {/* Styled admin dropdown */}
+
+          {isOpen && isAuthenticated && (
+            <li>
+              <Link to="/settings">
+                <FaUserCog /> Settings
+              </Link>
+            </li>
+          )}
 
           {isOpen && isAuthenticated && (
             <li style={{ marginBottom: "40px" }}>

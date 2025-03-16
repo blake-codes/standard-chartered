@@ -10,6 +10,7 @@ import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ChatBot from "../components/ChatBot";
 import { useAuth } from "../AuthContext";
+import axios from "axios";
 
 // Styled Components
 const PageWrapper = styled.div`
@@ -135,7 +136,7 @@ const Settings = () => {
   const [notifications, setNotifications] = useState(true);
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, _id } = useAuth(); // Get userId from auth context
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -147,16 +148,46 @@ const Settings = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSaveChanges = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSaveChanges = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      toast.success("Account settings updated successfully!", {
+
+    if (!currentPassword || !newPassword) {
+      toast.error("Please fill in both password fields.", {
         position: "top-right",
         autoClose: 3000,
       });
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await axios.put(
+        `https://standard-server.onrender.com/api/users/${_id}/update-password`,
+        {
+          currentPassword,
+          newPassword,
+        }
+      );
+
+      toast.success("Password updated successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+
+      setCurrentPassword("");
+      setNewPassword("");
+    } catch (error: any) {
+      toast.error(
+        error.response?.data?.message || "Failed to update password.",
+        {
+          position: "top-right",
+          autoClose: 3000,
+        }
+      );
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -166,14 +197,12 @@ const Settings = () => {
         <BackArrow onClick={() => navigate(-1)}>← Back</BackArrow>
         <SettingsContainer>
           <Form onSubmit={handleSaveChanges}>
-            {/* Personal Details */}
-
             {/* Change Password */}
             <SectionTitle>Change Password</SectionTitle>
             <InputField>
               <Label>Current Password</Label>
               <Input
-                type="password"
+                type="text"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
               />
@@ -181,7 +210,7 @@ const Settings = () => {
             <InputField>
               <Label>New Password</Label>
               <Input
-                type="password"
+                type="text"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
@@ -211,7 +240,10 @@ const Settings = () => {
               <CheckboxLabel>Receive email notifications</CheckboxLabel>
             </CheckboxContainer>
 
-            <Button type="submit" disabled={loading}>
+            <Button
+              type="submit"
+              disabled={loading || !currentPassword || !newPassword}
+            >
               {loading ? (
                 <CircularProgress size={24} style={{ color: "white" }} />
               ) : (
